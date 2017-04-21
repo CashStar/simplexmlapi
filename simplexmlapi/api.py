@@ -1,4 +1,4 @@
-from node import DotXMLDoc, AttributeParsingError
+from .node import DotXMLDoc, AttributeParsingError
 
 class SimpleXmlApi(object):
     """

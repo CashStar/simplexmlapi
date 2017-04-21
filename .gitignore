@@ -1,0 +1,6 @@
+build/
+dist/
+simplexmlapi.egg-info/
+*.pyc
+
+

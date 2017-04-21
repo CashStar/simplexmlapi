@@ -97,7 +97,7 @@ Extending L{SimpleXmlApi}:
 __version__ = '0.1.2'
 __all__ = ['load', 'loads', 'SimpleXmlApi']
 
-from api import SimpleXmlApi, factory as _factory
+from .api import SimpleXmlApi, factory as _factory
 
 def load(fp, map=None, cls=None, **kwargs):
     """

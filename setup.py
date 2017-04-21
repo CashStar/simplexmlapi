@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
-import ez_setup
-ez_setup.use_setuptools()
+from __future__ import unicode_literals
+from setuptools import find_packages
+from distutils.core import setup
+from distutils.sysconfig import get_python_lib
 
-from setuptools import setup, find_packages
-
-version = '0.1.2'
+version = '0.1.2c'
 LONG_DESCRIPTION = """
 simplexmlapi provides an easy way to access XML data. It is pure Python code with no dependencies.
 
@@ -30,5 +30,6 @@ setup(name='simplexmlapi',
       license='MIT License',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       platforms=['any'],
-      zip_safe=True
+      zip_safe=False,
+      install_requires=['six'],
       )

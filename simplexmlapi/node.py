@@ -1,5 +1,7 @@
 from xml.dom.minicompat import *
 from xml.dom.minidom import Node, parseString, Attr
+import six
+
 
 class NoSuchNode(Exception): 
     "No node is accessible via the dotted name given."
@@ -41,13 +43,13 @@ class DotNodeParent(type):
         return type.__call__(self, [mutate(item) for item in sequence])
 
 
+@six.add_metaclass(DotNodeParent)
 class DotNodeList(NodeList):
     """
     A L{NodeList} that asks its first child for attributes.
 
     One can also access this like a dictionary to get an L{Attr} on the first child.
     """
-    __metaclass__ = DotNodeParent
     
     def __getitem__(self, index):
         """
@@ -176,7 +178,7 @@ class DotNode(object):
         @return: The text value of C{self._node}
         @rtype: str
         """
-        return unicode(_getText(self._node))
+        return six.text_type(_getText(self._node))
 
     # Property accessor
     _ = property(getValue)
