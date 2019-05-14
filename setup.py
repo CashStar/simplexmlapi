@@ -31,5 +31,5 @@ setup(name='simplexmlapi',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       platforms=['any'],
       zip_safe=False,
-      install_requires=['six', 'defusedxml'],
+      install_requires=['six', 'defusedxml>=0.6.0'],
       )
