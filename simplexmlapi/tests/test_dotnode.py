@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import unittest
+from defusedxml import EntitiesForbidden
 
 TESTDOC = """
 <node1 abc="1" b="2" subnode="subnodeval">
@@ -14,6 +15,16 @@ TESTDOC = """
 </node1>
 """
 
+TESTBOMB = """
+<!DOCTYPE xmlbomb [
+<!ENTITY a "1234567890" >
+<!ENTITY b "&a;&a;&a;&a;&a;&a;&a;&a;">
+<!ENTITY c "&b;&b;&b;&b;&b;&b;&b;&b;">
+<!ENTITY d "&c;&c;&c;&c;&c;&c;&c;&c;">
+]>
+<bomb>&c;</bomb>
+"""
+
 from simplexmlapi.node import *
 
 class TestDotNodes(unittest.TestCase):
@@ -24,7 +35,7 @@ class TestDotNodes(unittest.TestCase):
     def test_DotNodeParent(self):
         l = self.doc.subnode
         for i in range(len(l)):
-            self.assert_(type(l[i])==DotNode)
+            self.assertEqual(type(l[i]), DotNode)
 
     def test_DotNodeList_getattr(self):
         l = self.doc.subnode
@@ -61,6 +72,9 @@ class TestDotNodes(unittest.TestCase):
     def test_DotNode_attributeGet(self):
         self.assertEqual(self.doc.subnode__1['c'], '3')
         self.assertRaises(NoSuchAttribute, lambda:self.doc.subnode['c'])
+
+    def test_DotNode_bomb(self):
+        self.assertRaises(EntitiesForbidden, lambda:DotXMLDoc(TESTBOMB))
 
 
 if __name__=="__main__":

@@ -1,5 +1,6 @@
 from xml.dom.minicompat import *
-from xml.dom.minidom import Node, parseString, Attr
+from xml.dom.minidom import Node
+from defusedxml.minidom import parseString
 import six
 
 
